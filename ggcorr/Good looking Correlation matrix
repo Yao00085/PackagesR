@@ -1,0 +1,71 @@
+install.packages("GGally")
+source("https://raw.githubusercontent.com/briatte/ggcorr/master/ggcorr.R")
+library(ggplot2)
+nba = read.csv("http://datasets.flowingdata.com/ppg2008.csv")
+ggcorr(nba)
+
+
+ggcorr(nba[, -1])
+ggcorr(matrix(runif(5), 2, 5))
+ggcorr(data = NULL, cor_matrix = cor(nba[, -1], use = "everything"))
+
+
+# Pearson correlation coefficients, using pairwise observations (default method)
+ggcorr(nba[, -1], method = c("pairwise", "pearson"))
+# Pearson correlation coefficients, using all observations
+ggcorr(nba[, -1], method = c("everything", "pearson"))
+# Kendall correlation coefficients, using complete observations
+ggcorr(nba[, -1], method = c("complete", "kendall"))
+# Spearman correlation coefficients, using strictly complete observations
+ggcorr(nba[, -1], method = c("all.obs", "spearman"))
+
+
+ggcorr(nba[, 2:15], nbreaks = 5)
+ggcorr(nba[, 2:15], name = expression(rho), legend.position = "bottom", legend.size = 12) +
+  guides(fill = guide_colorbar(barwidth = 18, title.vjust = 0.75)) +
+  theme(legend.title = element_text(size = 14))
+  
+  
+  ----------------------------------------------------------------------------------------------------
+  
+  
+  
+  
+  # Project included
+  
+  
+  rep <- cbind(xts_edu_spending$Alabama,xts_edu_spending$Arizona,
+             xts_edu_spending$Florida,xts_edu_spending$Georgia)
+dem <- cbind(xts_edu_spending$California,xts_edu_spending$Hawaii,
+             xts_edu_spending$Connecticut,xts_edu_spending$Vermont)
+ggcorr(rep, nbreaks=10, palette='RdGy', label=TRUE,
+       label_size=5, label_color='white',label_round = 3)
+ggcorr(dem, nbreaks=10, palette='RdGy', label=TRUE,
+       label_size=5,label_color='white',label_round = 3)
+
+
+ggcorr(rep, geom = "blank", label = TRUE, hjust = 0.75,label_round = 3) +
+  geom_point(size = 20, aes(color = coefficient > 0, alpha = abs(coefficient) > 0.5)) +
+  scale_alpha_manual(values = c("TRUE" = 0.5, "FALSE" = 0)) +
+  guides(color = FALSE, alpha = FALSE)
+
+ggcorr(dem, geom = "blank", label = TRUE, hjust = 0.75,label_round = 3) +
+  geom_point(size = 20, aes(color = coefficient > 0, alpha = abs(coefficient) > 0.5)) +
+  scale_alpha_manual(values = c("TRUE" = 0.5, "FALSE" = 0)) +
+  guides(color = FALSE, alpha = FALSE)
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
