@@ -1,0 +1,50 @@
+# This package is quite useful to extract table directly from a PDF
+
+install.packages("rJava", type = "source")
+install.packages("pdftools")
+library(rJava)
+library(pdftools)
+library(tidyverse)
+library(plyr)
+library(data.table)
+library(tabulizer)
+library(tidyverse)
+
+# when installing rJava, there's always error:
+# trying URL 'https://cran.rstudio.com/src/contrib/rJava_0.9-13.tar.gz'
+# Warning in install.packages :
+# URL 'https://cran.rstudio.com/src/contrib/rJava_0.9-13.tar.gz': status was 'SSL connect error'
+#Error in download.file(url, destfile, method, mode = "wb", ...) : 
+#  cannot open URL 'https://cran.rstudio.com/src/contrib/rJava_0.9-13.tar.gz'
+#Warning in install.packages :
+#  download of package ‘rJava’ failed
+
+** Please download the tgz from https://cran.rstudio.com/src/contrib/rJava_0.9-13.tar.gz
+
+> install.packages("/Users/jinyao/Dropbox/My Mac (jinyao的MacBook Pro)/Desktop/rJava_0.9-13.tgz", repos = NULL, type="source")
+
+# setwd("/Users/jinyao/Desktop/RainyDay")
+# f <- "2009.pdf" ## f is the path&name
+getwd()
+
+#Here are two ways of getting the tables
+
+## 1. Extract the specific page's content
+out1 <- extract_tables("~/Desktop/RainyDay/2003.pdf",pages=28, guess = FALSE, output = "data.frame")
+## 2. Automatically open the file and select the area you want to transfer to table(I use this, very powerful!)
+out1 = extract_areas("~/Desktop/Split/2010.pdf", 1) # the numebr is the page
+table = data.frame(out1)
+table
+fwrite(table, file="2010.csv", append = FALSE)
+
+# note: the most tidious part is uploading the rJava package, the following links may help
+# http://pablobarbera.com/ECPR-SC104/code/11-data-in-PDFs.html
+# https://support.apple.com/kb/DL1572?locale=en_US
+# http://paulklemm.com/blog/2017-02-12-fix-onload-failed-rjava-macos/
+# If you use mac, you may meet bug, try:
+# https://www.harrisgeospatial.com/Support/Self-Help-Tools/Help-Articles/Help-Articles-Detail/ArtMID/10220/ArticleID/23780/Mac-OS-Catalina-1015-ENVIIDL-and-Legacy-Java-6-Dependencies
+
+
+
+
+
